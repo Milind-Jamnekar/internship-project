@@ -1,0 +1,52 @@
+.in__view {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.in__container {
+  box-shadow: 0 0.25rem 0.5rem rgba(26, 26, 44, 0.05);
+  padding: 100px;
+}
+
+.in__input {
+  padding: 0.33rem 0.15rem 0.33rem 0.66rem;
+  background: #fff;
+  box-shadow: 0 0.25rem 0.5rem rgba(26, 26, 44, 0.05);
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.in__logo {
+  padding: 5px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  margin-top: 20px;
+}
+
+.in__google {
+  border: 2px solid rgb(0, 132, 255);
+  color: rgb(0, 135, 255);
+}
+
+.in__facebook {
+  background: blue;
+}
+
+@media (max-width: 550px) {
+  .in__input {
+    margin-right: 0;
+    padding: 0;
+    margin: 0 auto;
+    padding: 0.33rem 0.15rem 0.33rem 0.66rem;
+  }
+}
