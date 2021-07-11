@@ -17,7 +17,7 @@ import { Image } from "next/image";
 import { Router } from "next/router";
 import defaultImage from "../public/default.jpg";
 
-function Toolbar() {
+function Toolbar({ changeIcon }) {
   const [session, loading] = useSession();
   const [active, setActive] = useState(false);
   const router = useRouter(false);
@@ -34,9 +34,9 @@ function Toolbar() {
         <IconContext.Provider value={{ className: s.sidebar__menuIcon }}>
           <ul className={s.sidebar__menuItem}>
             <li onClick={() => router.push("/")}>
-              <HiHome className="active" size="2rem" />
+              <HiHome size="2rem" />
             </li>
-            <li>
+            <li onClick={() => router.push("/Checkout")}>
               <HiShoppingCart size="2rem" />
             </li>
             <li>

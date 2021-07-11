@@ -1,9 +1,9 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["links.papareact.com", "fakestoreapi.com"],
+    domains: ["lh3.googleusercontent.com", "fakestoreapi.com"],
   },
   env: {
-    stripe_public_key: process.env.STRIPE_PUBLIC_KEY,
+    stripe_public_key: process.env.KEY_ID,
   },
 };

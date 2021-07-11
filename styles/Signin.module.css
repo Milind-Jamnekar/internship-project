@@ -5,20 +5,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: rgb(90, 89, 89);
 }
 
 .in__container {
-  box-shadow: 0 0.25rem 0.5rem rgba(26, 26, 44, 0.05);
+  box-shadow: 0 0.5rem 0.5rem rgba(26, 26, 44, 0.05);
   padding: 100px;
+  background: #f12711; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #f5af19,
+    #f12711
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom right,
+    rgba(245, 175, 25, 0.205),
+    #f1271100
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .in__input {
   padding: 0.33rem 0.15rem 0.33rem 0.66rem;
-  background: #fff;
-  box-shadow: 0 0.25rem 0.5rem rgba(26, 26, 44, 0.05);
-  border-radius: 0.5rem;
+  width: 92.5%;
+  background: white;
+  box-shadow: 0 0.5rem 0.5rem rgba(26, 26, 44, 0.05);
   font-size: 0.85rem;
-  margin-right: 1rem;
+  border-style: none;
+  /* margin-right: 1rem; */
   display: flex;
   align-items: center;
   position: relative;
@@ -30,16 +43,42 @@
   justify-content: space-between;
   align-items: center;
   color: white;
-  margin-top: 20px;
+  box-shadow: 0 0.5rem 0.5rem rgba(26, 26, 44, 0.05);
 }
 
 .in__google {
-  border: 2px solid rgb(0, 132, 255);
+  background: white;
   color: rgb(0, 135, 255);
+  transition: transform 0.4s ease;
+  margin-top: 2rem;
+}
+
+.in__google:hover {
+  transform: scale(1.03);
 }
 
 .in__facebook {
   background: blue;
+  transition: transform 0.4s ease;
+  border-style: none;
+  margin-top: 1rem;
+}
+
+.in__facebook:hover {
+  transform: scale(1.03);
+}
+
+.in__user {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.in__heading {
+  font-size: 2rem;
+  text-align: center;
 }
 
 @media (max-width: 550px) {

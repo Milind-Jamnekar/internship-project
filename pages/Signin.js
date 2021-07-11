@@ -34,6 +34,7 @@ import s from "../styles/Signin.module.css";
 import Head from "next/head";
 import { FaFacebookF } from "react-icons/fa";
 import router from "next/router";
+import Image from "next/image";
 
 const Page = () => {
   const [popup, setPopUp] = useState(false);
@@ -80,6 +81,19 @@ const Page = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+      {session && (
+        <div className={styles.app__inner}>
+          <div className={s.in__user}>
+            <h1 className={s.in__name}>Welcome {session.user.name}</h1>
+            <Image
+              src={session.user.image}
+              width="100"
+              height="100"
+              alt="user Image"
+            />
           </div>
         </div>
       )}

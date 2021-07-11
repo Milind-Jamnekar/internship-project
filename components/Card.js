@@ -3,6 +3,8 @@ import s from "./../styles/Card.module.css";
 import { FiShoppingCart, FiMinusCircle } from "react-icons/fi";
 import { useContext } from "react";
 import { CartContext } from "./../Contexts/store";
+import { motion } from "framer-motion";
+import { pageZoom, pageTransition } from "./../utils/util";
 
 function Card({ id, title, price, amount = 1, description, category, image }) {
   //   const localelang = () =>
@@ -14,7 +16,7 @@ function Card({ id, title, price, amount = 1, description, category, image }) {
   //     style: "currency",
   //     currency: "JPY",
   //   });
-  const [cart, setCart, incItem, addToCart] = useContext(CartContext);
+  const [cart, addToCart] = useContext(CartContext);
 
   const add = () => {
     addToCart({ id, title, price, amount, image });
@@ -25,7 +27,15 @@ function Card({ id, title, price, amount = 1, description, category, image }) {
   };
 
   return (
-    <div className={s.card__container}>
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageZoom}
+      transition={pageTransition}
+      layout
+      className={s.card__container}
+    >
       <div className={s.card__image}>
         <Image
           src={image}
@@ -53,7 +63,7 @@ function Card({ id, title, price, amount = 1, description, category, image }) {
           <FiMinusCircle size="2rem" />
         </a> */}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

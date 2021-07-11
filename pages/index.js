@@ -4,14 +4,14 @@ import Toolbar from "../components/Toolbar";
 import Header from "../components/Header";
 import Products from "./../components/Products";
 import dynamic from "next/dynamic";
-import { CartProvider } from "./../Contexts/store";
+import React from "react";
 
 // It is code splittin for sign in component
 const DynamicSign = dynamic(() => import("./Signin"));
 
 export default function Home({ products }) {
   return (
-    <CartProvider>
+    <React.Fragment>
       <Head>
         <title>Auth and Payment Gateway</title>
       </Head>
@@ -24,7 +24,7 @@ export default function Home({ products }) {
           {/* <DynamicSign /> */}
         </div>
       </div>
-    </CartProvider>
+    </React.Fragment>
   );
 }
 

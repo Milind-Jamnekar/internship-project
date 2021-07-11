@@ -26,7 +26,7 @@
 .card__badge {
   text-transform: uppercase;
   background-color: rgb(169, 238, 199);
-  color: black;
+  color: rgb(2, 102, 19);
   font-weight: bold;
   font-size: 0.75rem;
   padding: 5px 10px;
@@ -54,14 +54,15 @@
 .card__add {
   position: absolute;
   display: flex;
+  color: #fff;
   justify-content: center;
   right: 30px;
   bottom: 40px;
   padding: 20px;
   border-radius: 50%;
-  stroke-opacity: 0.7;
-  background: rgba(248, 190, 103, 0.986);
-  box-shadow: 0 0.5rem 0.5rem rgba(26, 26, 44, 0.1);
+  background: #ff9900;
+  /* box-shadow: 0 0.5rem 0.5rem rgba(26, 26, 44, 0.1); */
+  box-shadow: 0 0.5rem 1rem rgb(255 153 0 / 25%);
   transition: transform 0.4s;
   cursor: pointer;
 }
