@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/client";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Contexts/store";
-import useSWR from "swr";
+import API from "./API";
 // Creating script tag on html document
 function loadRazorPay(src) {
   return new Promise((resolve) => {
@@ -18,26 +18,17 @@ function loadRazorPay(src) {
   });
 }
 
-function Payment({ getTotal }) {
+function Payment({ paymentSuccess }) {
   const [cart] = useContext(CartContext);
   const [session, loading] = useSession();
+  const [show, setShow] = useState(false);
 
   let total = 0;
   for (const key in cart) {
     total = total + cart[key].price;
   }
 
-  const fetcher = (url) =>
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        amount: total,
-      }),
-      headers: { "Content-type": "application/json" },
-    }).then((res) => res.json());
-
-  const { data, error } = useSWR("/api/razorpay", fetcher);
-  async function displayRazorPay() {
+  async function displayRazorPay(data) {
     // Calculating total of all items in cart
     // console.log(total.toString());
 
@@ -60,18 +51,20 @@ function Payment({ getTotal }) {
     //   headers: { "Content-type": "application/json" },
     // }).then((res) => res.json());
 
+    // console.log(data);
     let options = {
       key: process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
-      amount: data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency: data.currency,
+      amount: data.amount ? data.amount : total, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: data.currency ? data.currency : "INR",
       name: "Amazon 2.0",
       description: "Test Transaction",
       image: session.user.image,
       order_id: data.id, //Passing the `id` obtained from the api /api/razorpay
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+        paymentSuccess();
       },
       prefill: {
         name: session.user.name,
@@ -99,7 +92,8 @@ function Payment({ getTotal }) {
 
   return (
     <div>
-      {session && <button onClick={() => displayRazorPay()}>Button</button>}
+      {!show && <button onClick={() => setShow(true)}>Pay</button>}
+      {show ? <API displayRazorPay={displayRazorPay} total={total} /> : null}
     </div>
   );
 }

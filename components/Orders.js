@@ -3,7 +3,7 @@ import s from "./../styles/Orders.module.css";
 import { CartContext } from "./../Contexts/store";
 import Image from "next/image";
 
-function Orders() {
+function Orders({ success }) {
   const [cart] = useContext(CartContext);
   const [items, setItems] = useState(true);
 
@@ -41,7 +41,18 @@ function Orders() {
       ) : (
         <h1>Your Shopping Cart 🛒 Is empty 😔 please shop first 😊 </h1>
       )}
-      <div>{items && <h1>Total:{total}</h1>}</div>
+      <div>
+        {items && (
+          <h1>
+            Total:{total}{" "}
+            {success && (
+              <h1 style={{ color: "green" }}>
+                Horray 🎊🎉 Payment is Complete
+              </h1>
+            )}
+          </h1>
+        )}
+      </div>
     </div>
   );
 }

@@ -12,6 +12,8 @@ export default async (req, res) => {
     amount = req.body.amount,
     currency = "INR";
 
+  // console.log();
+
   const options = {
     amount: (amount * 100).toString(),
     currency,
@@ -20,7 +22,7 @@ export default async (req, res) => {
 
   try {
     const response = await razorpay.orders.create(options);
-    // console.log(response);
+    console.log(response);
     res.status(200).json({
       id: response.id,
       amount: response.amount,

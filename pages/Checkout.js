@@ -3,7 +3,7 @@ import Orders from "../components/Orders";
 import { motion } from "framer-motion";
 import { pageTransition, pageSlide } from "../utils/util";
 import Toolbar from "../components/Toolbar";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import Payment from "../components/Payment";
@@ -11,12 +11,13 @@ import Payment from "../components/Payment";
 function Checkout() {
   const [session, loading] = useSession();
   const router = useRouter();
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     !session && router.push("/Signin");
-  }, [router, session]);
+  }, [session]);
 
-  // !session && router.push("/Signin");
+  const paymentSuccess = () => setSuccess(true);
 
   return (
     <motion.div
@@ -40,8 +41,8 @@ function Checkout() {
       >
         {session && (
           <React.Fragment>
-            <Orders />
-            <Payment />
+            <Orders success={success} />
+            <Payment paymentSuccess={paymentSuccess} />
           </React.Fragment>
         )}
       </div>
