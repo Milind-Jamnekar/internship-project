@@ -71,7 +71,10 @@ const Page = () => {
                   <FcGoogle size="1.5rem" style={{ marginRight: "10px" }} />
                   <h4>Sign in with Google</h4>
                 </div>
-                <button className={`${s.in__logo} ${s.in__facebook}`}>
+                <button
+                  className={`${s.in__logo} ${s.in__facebook}`}
+                  onClick={() => signIn("facebook")}
+                >
                   <FaFacebookF
                     size="2rem"
                     fill="#fff"
