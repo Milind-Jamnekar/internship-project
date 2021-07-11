@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/client";
 import { useContext, useEffect } from "react";
 import { CartContext } from "../Contexts/store";
+import useSWR from "swr";
 // Creating script tag on html document
 function loadRazorPay(src) {
   return new Promise((resolve) => {
@@ -21,12 +22,23 @@ function Payment({ getTotal }) {
   const [cart] = useContext(CartContext);
   const [session, loading] = useSession();
 
+  let total = 0;
+  for (const key in cart) {
+    total = total + cart[key].price;
+  }
+
+  const fetcher = (url) =>
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        amount: total,
+      }),
+      headers: { "Content-type": "application/json" },
+    }).then((res) => res.json());
+
+  const { data, error } = useSWR("/api/razorpay", fetcher);
   async function displayRazorPay() {
     // Calculating total of all items in cart
-    let total = 0;
-    for (const key in cart) {
-      total = total + cart[key].price;
-    }
     // console.log(total.toString());
 
     // this lets us add script tag with razorpay sdk src in html document
@@ -40,13 +52,13 @@ function Payment({ getTotal }) {
     }
 
     // Making Id from api which then use fron checkout
-    const data = await fetch("/api/razorpay", {
-      method: "POST",
-      body: JSON.stringify({
-        amount: 5,
-      }),
-      headers: { "Content-type": "application/json" },
-    }).then((res) => res.json());
+    // const data = await fetch("/api/razorpay", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     amount: total,
+    //   }),
+    //   headers: { "Content-type": "application/json" },
+    // }).then((res) => res.json());
 
     let options = {
       key: process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
