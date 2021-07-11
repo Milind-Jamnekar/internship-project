@@ -23,7 +23,7 @@
 
 import { useState } from "react";
 import NewWindow from "react-new-window";
-import { signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/client";
 import { IconContext } from "react-icons";
 import React from "react";
 import { useRouter } from "next/router";
@@ -66,7 +66,7 @@ const Page = () => {
 
                 <div
                   className={`${s.in__logo} ${s.in__google}`}
-                  onClick={() => setPopUp(true)}
+                  onClick={() => signIn("google")}
                 >
                   <FcGoogle size="1.5rem" style={{ marginRight: "10px" }} />
                   <h4>Sign in with Google</h4>
@@ -98,13 +98,13 @@ const Page = () => {
         </div>
       )}
 
-      {popup && !session ? (
+      {/* {popup && !session ? (
         <NewWindow
           url="/sign-in"
           center="screen"
           onUnload={() => setPopUp(false)}
         />
-      ) : null}
+      ) : null} */}
     </React.Fragment>
     // <div>
     //   {loading ? (
