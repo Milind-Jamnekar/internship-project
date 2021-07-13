@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // import { signIn, signOut, useSession } from "next-auth/client";
 
 // export default function Page() {
@@ -91,12 +92,7 @@ const Page = () => {
         <div className={styles.app__inner}>
           <div className={s.in__user}>
             <h1 className={s.in__name}>Welcome {session.user.name}</h1>
-            <Image
-              src={session.user.image}
-              width="100"
-              height="100"
-              alt="user Image"
-            />
+            <img src={session.user.image} alt="user Image" />
           </div>
         </div>
       )}

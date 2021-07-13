@@ -24,7 +24,9 @@ function API({ displayRazorPay, total }) {
             background: "blue",
             fontSize: "2rem",
           }}
-          onClick={() => displayRazorPay(data)}
+          onClick={() => {
+            displayRazorPay(data);
+          }}
         >
           Razorpay
         </button>

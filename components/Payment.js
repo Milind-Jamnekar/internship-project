@@ -3,20 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../Contexts/store";
 import API from "./API";
 // Creating script tag on html document
-function loadRazorPay(src) {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => {
-      resolve(true);
-    };
-
-    script.onerror = () => {
-      resolve(false);
-    };
-    document.body.appendChild(script);
-  });
-}
 
 function Payment({ paymentSuccess }) {
   const [cart] = useContext(CartContext);
@@ -28,35 +14,21 @@ function Payment({ paymentSuccess }) {
     total = total + cart[key].price;
   }
 
-  async function displayRazorPay(data) {
-    // Calculating total of all items in cart
-    // console.log(total.toString());
-
-    // this lets us add script tag with razorpay sdk src in html document
-    const res = await loadRazorPay(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
-
-    // Error Handling
-    if (!res) {
-      alert("razorpay sdk failed to load");
-    }
-
+  async function displayRazorPay() {
     // Making Id from api which then use fron checkout
-    // const data = await fetch("/api/razorpay", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     amount: total,
-    //   }),
-    //   headers: { "Content-type": "application/json" },
-    // }).then((res) => res.json());
+    const data = await fetch("/api/razorpay", {
+      method: "POST",
+      body: JSON.stringify({
+        amount: total,
+      }),
+      headers: { "Content-type": "application/json" },
+    }).then((res) => res.json());
 
-    // console.log(data);
     let options = {
       key: process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: data.amount ? data.amount : total, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: data.currency ? data.currency : "INR",
-      name: "Amazon 2.0",
+      name: session.user.name,
       description: "Test Transaction",
       image: session.user.image,
       order_id: data.id, //Passing the `id` obtained from the api /api/razorpay
@@ -92,8 +64,9 @@ function Payment({ paymentSuccess }) {
 
   return (
     <div>
-      {!show && <button onClick={() => setShow(true)}>Pay</button>}
-      {show ? <API displayRazorPay={displayRazorPay} total={total} /> : null}
+      {/* {!show && <button onClick={() => setShow(true)}>Pay</button>} */}
+      <button onClick={() => displayRazorPay()}>Razorpay</button>
+      {/* {show ? <API displayRazorPay={displayRazorPay} total={total} /> : null} */}
     </div>
   );
 }
